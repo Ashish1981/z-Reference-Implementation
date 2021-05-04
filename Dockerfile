@@ -16,9 +16,9 @@ COPY run-myfile2.R /srv/shiny-server/run-myfile2.R
 COPY plumb_1.sh /usr/bin/plumb_1.sh
 COPY plumb_2.sh /usr/bin/plumb_2.sh
 RUN chmod +x /usr/bin/plumb_1.sh \
-    && chmod +x  /usr/bin/plumb_2.sh 
-RUN mkdir -p /var/log/supervisord/plumber1 \
-    && /var/log/supervisord/plumber2
+    && chmod +x  /usr/bin/plumb_2.sh \
+    && mkdir -p /var/log/supervisord/plumber1 \
+    && mkdir -p /var/log/supervisord/plumber2
 RUN rm -rf /tmp/*
 #
 # Make the ShinyApp available at port 1240
