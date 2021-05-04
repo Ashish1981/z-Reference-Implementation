@@ -16,7 +16,9 @@ COPY run-myfile2.R /srv/shiny-server/run-myfile2.R
 COPY plumb_1.sh /usr/bin/plumb_1.sh
 COPY plumb_2.sh /usr/bin/plumb_2.sh
 RUN chmod +x /usr/bin/plumb_1.sh \
-    && chmod +x  /usr/bin/plumb_2.sh
+    && chmod +x  /usr/bin/plumb_2.sh \
+    && mkdir -p /var/log/supervisord/plumber1 \
+    && /var/log/supervisord/plumber2
 RUN rm -rf /tmp/*
 #
 # Make the ShinyApp available at port 1240
@@ -25,6 +27,8 @@ EXPOSE 1240 8000 8100
 # Copy further configuration files into the Docker image
 COPY /supervisord.conf /etc/
 RUN chgrp -Rf shiny /var/log/supervisord && chmod -Rf g+rwx /var/log/supervisord
+RUN chgrp -Rf shiny /var/log/supervisord/plumber1 && chmod -Rf g+rwx /var/log/supervisord/plumber1
+RUN chgrp -Rf shiny /var/log/supervisord/plumber2 && chmod -Rf g+rwx /var/log/supervisord/plumber2
 RUN chgrp -Rf shiny /var/log/shiny-server && chmod -Rf g+rwx /var/log/shiny-server
 RUN chgrp -Rf shiny /srv/shiny-server && chmod -Rf g+rwx /srv/shiny-server
 RUN chgrp -Rf shiny /var/lib/shiny-server && chmod -Rf g+rwx /var/lib/shiny-server
