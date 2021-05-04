@@ -11,8 +11,8 @@ RUN mkdir -p /var/log/supervisord
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf
 COPY shiny-server.sh /usr/bin/shiny-server.sh
 RUN chmod +x /usr/bin/shiny-server.sh
-COPY run-myfile1.R /srv/shiny-server/
-COPY run-myfile2.R /srv/shiny-server/
+COPY run-myfile1.R /srv/shiny-server/run-myfile1.R
+COPY run-myfile2.R /srv/shiny-server/run-myfile2.R
 COPY plumb_1.sh /usr/bin/plumb_1.sh
 COPY plumb_2.sh /usr/bin/plumb_2.sh
 RUN chmod +x /usr/bin/plumb_1.sh \
