@@ -35,11 +35,16 @@ RUN chgrp -Rf root /var/lib/shiny-server && chmod -Rf g+rwx /var/lib/shiny-serve
 RUN chgrp -Rf root /etc/shiny-server && chmod -Rf g+rwx /etc/shiny-server
 
 RUN chmod -Rf g+rwx /var/log/supervisord
-
 RUN chmod -Rf g+rwx /var/log/shiny-server 
 RUN chmod -Rf g+rwx /srv/shiny-server
 RUN chmod -Rf g+rwx /var/lib/shiny-server
 RUN chmod -Rf g+rwx /etc/shiny-server
+
+RUN chown -Rf shiny.shiny /var/log/supervisord
+RUN chown -Rf shiny.shiny /var/log/shiny-server 
+RUN chown -Rf shiny.shiny /srv/shiny-server
+RUN chown -Rf shiny.shiny /var/lib/shiny-server
+RUN chown -Rf shiny.shiny /etc/shiny-server
 
 #VOLUME [ "/tmp/log/supervisord" ]
 WORKDIR /var/log/supervisord
@@ -54,4 +59,5 @@ RUN chmod g+w /etc/passwd
 ####################
 #
 #
+USER shiny
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
