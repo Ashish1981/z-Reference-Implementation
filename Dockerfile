@@ -26,7 +26,7 @@ EXPOSE 1240 8000 8100
 #
 # Copy further configuration files into the Docker image
 COPY /supervisord.conf /etc/
-RUN chgrp -Rf shiny /var/log/supervisord && chmod -Rf g+rwx /var/log/supervisord
+RUN chgrp -Rf root  /var/log/supervisord && chmod -Rf g+rwx /var/log/supervisord
 RUN chgrp -Rf shiny /var/log/supervisord/plumber1 && chmod -Rf g+rwx /var/log/supervisord/plumber1
 RUN chgrp -Rf shiny /var/log/supervisord/plumber2 && chmod -Rf g+rwx /var/log/supervisord/plumber2
 RUN chgrp -Rf shiny /var/log/shiny-server && chmod -Rf g+rwx /var/log/shiny-server
@@ -40,7 +40,7 @@ RUN chmod -Rf g+rwx /srv/shiny-server
 RUN chmod -Rf g+rwx /var/lib/shiny-server
 RUN chmod -Rf g+rwx /etc/shiny-server
 
-RUN chown -Rf shiny.shiny /var/log/supervisord
+# RUN chown -Rf shiny.shiny /var/log/supervisord/
 RUN chown -Rf shiny.shiny /var/log/shiny-server 
 RUN chown -Rf shiny.shiny /srv/shiny-server
 RUN chown -Rf shiny.shiny /var/lib/shiny-server
@@ -59,5 +59,5 @@ RUN chmod g+w /etc/passwd
 ####################
 #
 #
-USER shiny
+# USER shiny
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
