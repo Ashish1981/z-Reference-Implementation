@@ -6,7 +6,8 @@ COPY /app /srv/shiny-server/
 #
 # Copy configuration files into the Docker image
 RUN su - -c "R -e \"install.packages(c('DT'), repos='https://cloud.r-project.org')\""
-RUN mkdir -p /var/log/supervisord
+RUN mkdir -p /var/log/supervisord \
+    && yum install -y xtail
 
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf
 COPY shiny-server.sh /usr/bin/shiny-server.sh
@@ -35,13 +36,13 @@ RUN chgrp -Rf root /srv/shiny-server && chmod -Rf g+rwx /srv/shiny-server
 RUN chgrp -Rf root /var/lib/shiny-server && chmod -Rf g+rwx /var/lib/shiny-server
 RUN chgrp -Rf root /etc/shiny-server && chmod -Rf g+rwx /etc/shiny-server
 
-RUN chmod -Rf g+rwx /var/log/supervisord
-RUN chmod -Rf g+rwx /var/log/shiny-server 
-RUN chmod -Rf g+rwx /srv/shiny-server
-RUN chmod -Rf g+rwx /var/lib/shiny-server
-RUN chmod -Rf g+rwx /etc/shiny-server
+RUN chmod -Rf 777 /var/log/supervisord
+RUN chmod -Rf 777 /var/log/shiny-server 
+RUN chmod -Rf 777 /srv/shiny-server
+RUN chmod -Rf 777 /var/lib/shiny-server
+RUN chmod -Rf 777 /etc/shiny-server
 
-# RUN chown -Rf shiny.shiny /var/log/supervisord/
+RUN chown -Rf shiny.shiny /var/log/supervisord/
 RUN chown -Rf shiny.shiny /var/log/shiny-server 
 RUN chown -Rf shiny.shiny /srv/shiny-server
 RUN chown -Rf shiny.shiny /var/lib/shiny-server
@@ -60,5 +61,5 @@ RUN chmod g+w /etc/passwd
 ####################
 #
 #
-# USER shiny
+USER shiny
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
