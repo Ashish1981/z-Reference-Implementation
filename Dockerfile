@@ -1,13 +1,11 @@
 # FROM ashish1981/x86-rbase-shiny-plumber
 FROM docker.io/ashish1981/s390x-clefos-shiny
 #
-#copy application
-COPY /app /srv/shiny-server/
+
 #
 # Copy configuration files into the Docker image
-RUN su - -c "R -e \"install.packages(c('DT'), repos='https://cloud.r-project.org')\""
-RUN mkdir -p /var/log/supervisord \
-    && yum install -y xtail
+RUN su - -c "R -e \"install.packages(c('DT','devtools'), repos='https://cloud.r-project.org')\""
+RUN mkdir -p /var/log/supervisord 
 
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf
 COPY shiny-server.sh /usr/bin/shiny-server.sh
@@ -51,7 +49,8 @@ RUN chown -Rf shiny.shiny /etc/shiny-server
 #VOLUME [ "/tmp/log/supervisord" ]
 WORKDIR /var/log/supervisord
 #
-
+#copy application
+COPY /app /srv/shiny-server/
 # ###Adjust permissions on /etc/passwd so writable by group root.
 RUN chmod g+w /etc/passwd
 ### Access Fix 24
