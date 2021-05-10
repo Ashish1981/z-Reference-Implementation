@@ -1050,7 +1050,7 @@ server <- shinyServer(function(input, output, session) {
     z <- ReappData$c
     readRenviron("../.env")
     urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/catalogManager/items/",input$accept_item_ref,sep="")
-    urlname
+    print(urlname)
     itemrefdata <- fromJSON(urlname)
     d1 <- as.data.frame(itemrefdata[[1]][[2]][[1]])    
     
