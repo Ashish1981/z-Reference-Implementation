@@ -24,6 +24,9 @@ RUN rm -rf /tmp/*
 # Make the ShinyApp available at port 1240
 EXPOSE 1240 8000 8100
 #
+#
+#copy application
+COPY /app /srv/shiny-server/
 # Copy further configuration files into the Docker image
 COPY /supervisord.conf /etc/
 RUN chgrp -Rf root  /var/log/supervisord && chmod -Rf g+rwx /var/log/supervisord
@@ -36,7 +39,7 @@ RUN chgrp -Rf root /etc/shiny-server && chmod -Rf g+rwx /etc/shiny-server
 
 RUN chmod -Rf 777 /var/log/supervisord
 RUN chmod -Rf 777 /var/log/shiny-server 
-RUN chmod -Rf 777 /srv/shiny-server
+RUN chmod -Rf 777 /srv/shiny-server/
 RUN chmod -Rf 777 /var/lib/shiny-server
 RUN chmod -Rf 777 /etc/shiny-server
 
@@ -48,9 +51,7 @@ RUN chown -Rf shiny.shiny /etc/shiny-server
 
 #VOLUME [ "/tmp/log/supervisord" ]
 WORKDIR /var/log/supervisord
-#
-#copy application
-COPY /app /srv/shiny-server/
+
 # ###Adjust permissions on /etc/passwd so writable by group root.
 RUN chmod g+w /etc/passwd
 ### Access Fix 24
