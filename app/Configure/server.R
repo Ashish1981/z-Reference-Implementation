@@ -15,7 +15,7 @@ shinyServer(function(input, output, session){
   ### interactive dataset 
   vals_trich<-reactiveValues()
   #vals_trich$Data<-readRDS("note.rds")
-  tempds<-read.csv("/srv/shiny-server/.env",header=FALSE,sep="=",stringsAsFactors = FALSE)
+  tempds<-read.csv("/srv/shiny-server/configure/environ",header=FALSE,sep="=",stringsAsFactors = FALSE)
   names(tempds) <- c("Parameter","Value")
   vals_trich$Data<-tempds
   
@@ -78,7 +78,7 @@ shinyServer(function(input, output, session){
     #saveRDS(vals_trich$Data, "note.rds")
     x <- data.frame(vals_trich$Data)
     y <- paste(x$Parameter,"=",'"',x$Value,'"',sep="")
-    write.table(y, "/srv/shiny-server/.env",quote=FALSE,row.names=FALSE,col.names = FALSE)
+    write.table(y, "/srv/shiny-server/configure/environ",quote=FALSE,row.names=FALSE,col.names = FALSE)
     #write.csv(data.frame(vals_trich$Data), "../.env", row.names = F,col.names = F,sep="=")
     shinyalert("Saved", "Please restart the Plumber Microservice Server", type = "success", confirmButtonCol = "#3F27B3")
     #shinyalert(title = "Saved!", type = "success")
@@ -184,7 +184,7 @@ shinyServer(function(input, output, session){
       paste("Trich Project-Progress", Sys.Date(), ".csv", sep="")
     },
     content = function(file) {
-      write.csv(data.frame(vals_trich$Data), "/srv/shiny-server/.env", row.names = F,col.names = F,sep="=")
+      write.csv(data.frame(vals_trich$Data), "/srv/shiny-server/configure/environ", row.names = F,col.names = F,sep="=")
     }
   )
  
