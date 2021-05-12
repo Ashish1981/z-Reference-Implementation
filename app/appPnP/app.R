@@ -1048,8 +1048,9 @@ server <- shinyServer(function(input, output, session) {
   output$show_item_details = DT::renderDataTable({
     
     z <- ReappData$c
-    readRenviron("/srv/shiny-server/.env")
-    urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/catalogManager/items/",input$accept_item_ref,sep="")
+    # readRenviron("/srv/shiny-server/.env")
+    # urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/catalogManager/items/",input$accept_item_ref,sep="")
+    urlname <- paste("http://192.86.33.143:9080","/catalogManager/items/",input$accept_item_ref,sep="")
     print(urlname)
     itemrefdata <- fromJSON(urlname)
     d1 <- as.data.frame(itemrefdata[[1]][[2]][[1]])    
