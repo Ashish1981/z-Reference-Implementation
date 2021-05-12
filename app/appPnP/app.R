@@ -811,7 +811,8 @@ server <- shinyServer(function(input, output, session) {
     
     if(nchar(str_pad(input$accept_account_ref,6,pad="0")) == 6) {
       readRenviron("../.env")
-      urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/jkebankaccount/account/",str_pad(input$accept_account_ref,6,pad="0"),sep="")
+      # urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/jkebankaccount/account/",str_pad(input$accept_account_ref,6,pad="0"),sep="")
+      urlname <- paste("http://192.86.33.143:9080","/jkebankaccount/account/",str_pad(input$accept_account_ref,6,pad="0"),sep="")
       accountdata <- fromJSON(urlname)
       if(accountdata[[1]][[1]][[1]][[2]] != 0){
         disable("RetrieveAccount")
@@ -1194,7 +1195,8 @@ server <- shinyServer(function(input, output, session) {
     ))
     z <- ReappData$c
     readRenviron("../.env")
-    urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/catalogManager/items?startItemId=",input$accept_item_ref,sep="")
+    # urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/catalogManager/items?startItemId=",input$accept_item_ref,sep="")
+    urlname <- paste("http://192.86.33.143:9080","/catalogManager/items?startItemId=",input$accept_item_ref,sep="")
     itemrefdata <- fromJSON(urlname)
     d1 <- as.data.frame(itemrefdata[[1]][[2]][[2]])
     d1 <- d1[,c(2,5,3)]
@@ -1272,7 +1274,7 @@ server <- shinyServer(function(input, output, session) {
       message <- "Enter Order Quantity for"
       rowpos <- NROW(orderitemlselectionlist) + 1
       readRenviron("../.env")
-      urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/catalogManager/items/",input$accept_item_ref,sep="")
+      urlname <- paste("http://192.86.33.143:9080","/catalogManager/items/",input$accept_item_ref,sep="")
       itemrefdata <- fromJSON(urlname)
       d1 <- as.data.frame(itemrefdata[[1]][[2]][[1]],stringsAsFactors=F)
       if(d1[1,1] != input$accept_item_ref){
@@ -1477,7 +1479,7 @@ server <- shinyServer(function(input, output, session) {
         shinyalert("Order", ReappData$c, type = "info",confirmButtonCol = "#3F27B3")
         if (ReappData$c != "ORDER SUCCESSFULLY PLACED") {
           readRenviron("../.env")
-          urlname <- paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/jkebankaccount/account/",str_pad(input$accept_account_ref,6,pad="0"),sep="")
+          urlname <- paste("http://192.86.33.143:9080","/jkebankaccount/account/",str_pad(input$accept_account_ref,6,pad="0"),sep="")
           accountdata <- fromJSON(urlname)
           if(accountdata[[1]][[1]][[1]][[2]] != 0){
             shinyalert("Error", "Reversal Account Not found", type = "error",confirmButtonCol = "#E74C3C")
@@ -1518,7 +1520,7 @@ server <- shinyServer(function(input, output, session) {
             )
           )
           readRenviron("../.env")
-          res <- PUT(paste(Sys.getenv("MainframeIP"),":",Sys.getenv("zConnectPort"),"/jkebankaccount/account/",dx2$NUMB,sep="")
+          res <- PUT(paste("http://192.86.33.143:9080","/jkebankaccount/account/",dx2$NUMB,sep="")
                      , body = pc_json
                      , encode = "json")
           
