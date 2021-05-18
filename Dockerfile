@@ -4,7 +4,7 @@ FROM docker.io/ashish1981/s390x-clefos-shiny
 
 #
 # Copy configuration files into the Docker image
-RUN su - -c "R -e \"install.packages(c('DT','devtools'), repos='https://cloud.r-project.org')\""
+RUN su - -c "R -e \"install.packages(c('DT','devtools','utils'), repos='https://cloud.r-project.org')\""
 RUN mkdir -p /var/log/supervisord 
 
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf

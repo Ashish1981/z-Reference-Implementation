@@ -1,4 +1,5 @@
 library(shiny)
+library(utils)
 #mspan <- span
 #library(geosphere)
 library(shinydashboard)

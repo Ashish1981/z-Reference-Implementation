@@ -15,7 +15,7 @@ shinyServer(function(input, output, session){
   ### interactive dataset 
   vals_trich<-reactiveValues()
   #vals_trich$Data<-readRDS("note.rds")
-  tempds<-read.csv("/srv/shiny-server/configure/environ",header=FALSE,sep="=",stringsAsFactors = FALSE)
+  tempds<-read.csv("/srv/shiny-server/Configure/environ",header=FALSE,sep="=",stringsAsFactors = FALSE)
   names(tempds) <- c("Parameter","Value")
   vals_trich$Data<-tempds
   
