@@ -1,5 +1,6 @@
 # FROM ashish1981/x86-rbase-shiny-plumber
-FROM docker.io/ashish1981/s390x-clefos-shiny
+#FROM docker.io/ashish1981/s390x-clefos-shiny
+FROM docker.io/ashish1981/clefos-shiny-server:shiny
 #
 
 #

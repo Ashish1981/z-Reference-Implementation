@@ -17,6 +17,7 @@ shinyServer(function(input, output, session){
   #vals_trich$Data<-readRDS("note.rds")
   tempds<-read.csv("/srv/shiny-server/Configure/environ",header=FALSE,sep="=",stringsAsFactors = FALSE)
   names(tempds) <- c("Parameter","Value")
+  #stop(tempds$Value)
   vals_trich$Data<-tempds
   
   #### MainBody_trich is the id of DT table
